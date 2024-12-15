@@ -23,14 +23,16 @@ ___        ___  __                    ___
  /\  /__` /__` | /__`  |   /\  |\ |  |    
 /~~\ .__/ .__/ | .__/  |  /~~\ | \|  |    
                                         
-''' + Style.RESET_ALL + "\n" + Fore.LIGHTCYAN_EX + " "*5 +"~ github: @Osvaldx" + Style.RESET_ALL)
+''' + Style.RESET_ALL + "\n" + Fore.LIGHTCYAN_EX + " "*5 +"~ github: @Osvaldx" + "\n" + Style.RESET_ALL)
 
 async def mensaje_spam_validacion(mensaje: str)-> bool:
     retorno = False
+    contenedor_letras = set()
     for letra in mensaje:
-        if mensaje.count(letra) >= 20:
-            retorno = True
-            break
+        contenedor_letras.add(letra)
+
+    if(len(contenedor_letras) <= 2) or len(mensaje) >= 150:
+        retorno = True
     
     return retorno
 
