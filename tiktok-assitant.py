@@ -62,7 +62,7 @@ async def me_siguieron(event: FollowEvent):
     if clave_seguidores not in followers_ya_leidos:
         followers_ya_leidos.add(clave_seguidores)
         engine.setProperty("rate", 125)
-        print(Fore.LIGHTCYAN_EX + f"[FOLLOW] {event.user.unique_id} Acabar de seguirte!" + Style.RESET_ALL)
+        print(Fore.LIGHTCYAN_EX + f"[FOLLOW] {event.user.unique_id} te empezo a seguir!" + Style.RESET_ALL)
         await hablar(f"{event.user.nickname} nos acaba de seguir!")
 
 if __name__ == "__main__":
