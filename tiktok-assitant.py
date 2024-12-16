@@ -27,7 +27,7 @@ ___        ___  __                    ___
 
 async def mensaje_spam_validacion(mensaje: str)-> bool:
     retorno = False
-    if(mensaje.isalpha() or (len(mensaje) <= 2)):
+    if(mensaje.replace(" ","").isalpha() or (len(mensaje) <= 2)):
         contador = 0
         auxiliar = ""
         for i in range(len(mensaje)):
@@ -38,7 +38,7 @@ async def mensaje_spam_validacion(mensaje: str)-> bool:
                 contador += 1
             
             auxiliar = mensaje[i]
-        if(contador >= 4):
+        if(contador >= 5):
             retorno = True
     else:
         retorno = True
