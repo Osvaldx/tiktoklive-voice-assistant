@@ -23,15 +23,24 @@ ___        ___  __                    ___
  /\  /__` /__` | /__`  |   /\  |\ |  |    
 /~~\ .__/ .__/ | .__/  |  /~~\ | \|  |    
                                         
-''' + Style.RESET_ALL + "\n" + Fore.LIGHTCYAN_EX + " "*5 +"~ github: @Osvaldx" + "\n" + Style.RESET_ALL)
+''' + Style.RESET_ALL)
 
 async def mensaje_spam_validacion(mensaje: str)-> bool:
     retorno = False
-    contenedor_letras = set()
-    for letra in mensaje:
-        contenedor_letras.add(letra)
-
-    if(len(contenedor_letras) <= 2) or len(mensaje) >= 150:
+    if(mensaje.isalpha() or (len(mensaje) <= 2)):
+        contador = 0
+        auxiliar = ""
+        for i in range(len(mensaje)):
+            if(i == 0):
+                auxiliar = mensaje[i]
+            
+            if(mensaje[i] == auxiliar):
+                contador += 1
+            
+            auxiliar = mensaje[i]
+        if(contador >= 4):
+            retorno = True
+    else:
         retorno = True
     
     return retorno
@@ -66,4 +75,7 @@ async def me_siguieron(event: FollowEvent):
         await hablar(f"{event.user.nickname} nos acaba de seguir!")
 
 if __name__ == "__main__":
-    cliente.run()
+    try:
+        cliente.run()
+    except Exception as e:
+        print(Fore.RED + f"[!] Error al conectar: {e}" + Style.RESET_ALL)
