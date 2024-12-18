@@ -7,7 +7,7 @@ from colorama import Fore,Style
 comentarios_ya_leidos = set()
 followers_ya_leidos = set()
 
-cliente = TikTokLiveClient(unique_id="@tizitizi52")
+cliente = TikTokLiveClient(unique_id="@elfokinronz")
 
 print(Fore.LIGHTBLUE_EX + r'''
 ___        ___  __                    ___ 
