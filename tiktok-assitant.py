@@ -1,18 +1,13 @@
 from TikTokLive import TikTokLiveClient
 from TikTokLive.events import ConnectEvent,CommentEvent,FollowEvent
-import pyttsx3
+from gtts import gTTS
+from playsound import playsound
 from colorama import Fore,Style
-
-engine = pyttsx3.init()
-voices = engine.getProperty('voices')
-
-engine.setProperty("rate", 150)
-engine.setProperty("volume", 1.0)
 
 comentarios_ya_leidos = set()
 followers_ya_leidos = set()
 
-cliente = TikTokLiveClient(unique_id="@elfokinronz")
+cliente = TikTokLiveClient(unique_id="@tizitizi52")
 
 print(Fore.LIGHTBLUE_EX + r'''
 ___        ___  __                    ___ 
@@ -27,27 +22,33 @@ ___        ___  __                    ___
 
 async def mensaje_spam_validacion(mensaje: str)-> bool:
     retorno = False
-    if(mensaje.replace(" ","").isalpha() or (len(mensaje) <= 2)):
-        contador = 0
-        auxiliar = ""
-        for i in range(len(mensaje)):
-            if(i == 0):
-                auxiliar = mensaje[i]
-            
-            if(mensaje[i] == auxiliar):
-                contador += 1
-            
-            auxiliar = mensaje[i]
-        if(contador >= 5):
+    if(not mensaje.replace(" ","").isalpha()):
+        emojis = 0
+        for letra in mensaje:
+            if(ord(letra) > 255):
+                emojis += 1
+        
+        if(emojis >= 5):
             retorno = True
-    else:
+    
+    contador = 0
+    auxiliar = ""
+    for i in range(len(mensaje)):
+        if(i == 0):
+            auxiliar = mensaje[i]
+        elif(mensaje[i] == auxiliar):
+            contador += 1
+        auxiliar = mensaje[i]
+    
+    if(contador >= 5):
         retorno = True
     
     return retorno
 
 async def hablar(texto: str)->None:
-    engine.say(texto)
-    engine.runAndWait()
+    mensaje = gTTS(texto, lang="es")
+    mensaje.save("mensaje.mp3")
+    playsound("mensaje.mp3")
 
 @cliente.on(ConnectEvent)
 async def conectar_live(event: ConnectEvent)-> None:
@@ -55,7 +56,7 @@ async def conectar_live(event: ConnectEvent)-> None:
 
 @cliente.on(CommentEvent)
 async def leer_comentarios(event: CommentEvent)-> None:
-    if(await mensaje_spam_validacion(event.comment) == False):
+    if(not await mensaje_spam_validacion(event.comment)):
         clave_comentario = f"{event.user.nickname}: {event.comment}"
         if clave_comentario not in comentarios_ya_leidos:
             comentarios_ya_leidos.add(clave_comentario)
@@ -70,7 +71,6 @@ async def me_siguieron(event: FollowEvent):
     clave_seguidores = f"{event.user.unique_id}"
     if clave_seguidores not in followers_ya_leidos:
         followers_ya_leidos.add(clave_seguidores)
-        engine.setProperty("rate", 125)
         print(Fore.LIGHTCYAN_EX + f"[FOLLOW] {event.user.unique_id} te empezo a seguir!" + Style.RESET_ALL)
         await hablar(f"{event.user.nickname} nos acaba de seguir!")
 
