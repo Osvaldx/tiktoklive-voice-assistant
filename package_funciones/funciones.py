@@ -1,6 +1,7 @@
 from gtts import gTTS
 from playsound import playsound
 from colorama import Fore,Style
+import os
 
 def dibujar_terminal(clave: str):
     if(clave == "titulo_menu"):
@@ -18,6 +19,9 @@ ___        ___  __                    ___
               Fore.LIGHTGREEN_EX + "- [3] " + Fore.WHITE + "Cambiar sonidos de alertas" + Style.RESET_ALL + "\n" +
               Fore.LIGHTYELLOW_EX + "- [4] " + Fore.LIGHTMAGENTA_EX + "Empezar directo" + Style.RESET_ALL + "\n" +
               Fore.LIGHTGREEN_EX + "- [5] " + Fore.WHITE + "Salir" + Style.RESET_ALL)
+
+def limpiar_terminal():
+    os.system("cls" if os.name == "nt" else "clear")
 
 async def mensaje_spam_validacion(mensaje: str)-> bool:
     retorno = False
