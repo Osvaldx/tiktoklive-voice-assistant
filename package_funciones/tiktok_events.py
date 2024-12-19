@@ -5,7 +5,7 @@ from package_funciones.funciones import *
 comentarios_ya_leidos = set()
 followers_ya_leidos = set()
 
-cliente = TikTokLiveClient(unique_id="@elfokinronz")
+cliente = TikTokLiveClient(unique_id=f"@{obtener_nombre()}")
 
 @cliente.on(ConnectEvent)
 async def conectar_live(event: ConnectEvent)-> None:

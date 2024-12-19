@@ -3,6 +3,18 @@ from playsound import playsound
 from colorama import Fore,Style
 import os
 
+def obtener_nombre()->str:
+    dibujar_terminal("titulo_menu")
+    print(Fore.LIGHTCYAN_EX + "\n[!] Ingrese su nombre de tiktok sin '@'")
+    nombre_tiktok = str(input(Fore.WHITE + "[~] @: "))
+
+    while(not nombre_tiktok.replace("_", "").isalnum()):
+        print(Fore.RED + "[!] ERROR: Ingrese un nombre valido" + Style.RESET_ALL)
+        nombre_tiktok = str(input(Fore.WHITE + "[~] @: "))
+
+    limpiar_terminal()
+    return nombre_tiktok
+
 def dibujar_terminal(clave: str):
     if(clave == "titulo_menu"):
         print(Fore.LIGHTBLUE_EX + r'''
@@ -14,11 +26,10 @@ ___        ___  __                    ___
  /\  /__` /__` | /__`  |   /\  |\ |  |    
 /~~\ .__/ .__/ | .__/  |  /~~\ | \|  |    ''' + Style.RESET_ALL)
     elif(clave == "opciones_menu_principal"):
-        print("\n" + Fore.LIGHTGREEN_EX + "- [1] " + Fore.WHITE + "Ingresar nombre TikTok-Live" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTGREEN_EX + "- [2] " + Fore.WHITE + "Renombrar usuarios-live" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTGREEN_EX + "- [3] " + Fore.WHITE + "Cambiar sonidos de alertas" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTYELLOW_EX + "- [4] " + Fore.LIGHTMAGENTA_EX + "Empezar directo" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTGREEN_EX + "- [5] " + Fore.WHITE + "Salir" + Style.RESET_ALL)
+        print("\n" + Fore.LIGHTGREEN_EX + "- [1] " + Fore.WHITE + "Renombrar usuarios-live" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTGREEN_EX + "- [2] " + Fore.WHITE + "Cambiar sonidos de alertas" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTYELLOW_EX + "- [3] " + Fore.LIGHTMAGENTA_EX + "Empezar directo" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTGREEN_EX + "- [4] " + Fore.WHITE + "Salir" + Style.RESET_ALL)
 
 def limpiar_terminal():
     os.system("cls" if os.name == "nt" else "clear")
