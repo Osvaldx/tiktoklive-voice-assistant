@@ -1,7 +1,17 @@
 from gtts import gTTS
 from playsound import playsound
 from colorama import Fore,Style
+import json
 import os
+
+def obtener_usuarios_json()->str:
+    with open("jsons/users_rename.json", "r", encoding="utf-8") as archivo:
+        datos = json.load(archivo)
+
+    return datos
+
+def validar_usuario(nickname: str,lista_usuarios:dict)->bool | str:
+    return nickname in lista_usuarios
 
 def obtener_nombre()->str:
     dibujar_terminal("titulo_menu")
@@ -26,10 +36,10 @@ ___        ___  __                    ___
  /\  /__` /__` | /__`  |   /\  |\ |  |    
 /~~\ .__/ .__/ | .__/  |  /~~\ | \|  |    ''' + Style.RESET_ALL)
     elif(clave == "opciones_menu_principal"):
-        print("\n" + Fore.LIGHTGREEN_EX + "- [1] " + Fore.WHITE + "Renombrar usuarios-live" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTGREEN_EX + "- [2] " + Fore.WHITE + "Cambiar sonidos de alertas" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTYELLOW_EX + "- [3] " + Fore.LIGHTMAGENTA_EX + "Empezar directo" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTGREEN_EX + "- [4] " + Fore.WHITE + "Salir" + Style.RESET_ALL)
+        print("\n" + Fore.LIGHTCYAN_EX + "- [1] " + Fore.WHITE + "Renombrar usuarios-live" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTCYAN_EX + "- [2] " + Fore.WHITE + "Cambiar sonidos de alertas" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTYELLOW_EX + "- [3] " + Fore.WHITE + "Empezar directo" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTCYAN_EX + "- [4] " + Fore.WHITE + "Salir" + Style.RESET_ALL)
 
 def limpiar_terminal():
     os.system("cls" if os.name == "nt" else "clear")

@@ -7,6 +7,8 @@ followers_ya_leidos = set()
 
 cliente = TikTokLiveClient(unique_id=f"@{obtener_nombre()}")
 
+lista_usuarios = obtener_usuarios_json()
+
 @cliente.on(ConnectEvent)
 async def conectar_live(event: ConnectEvent)-> None:
     print(Fore.LIGHTGREEN_EX + f"[+] Se conecto al Live de: {event.unique_id} correctamente!" + Style.RESET_ALL)
@@ -19,10 +21,8 @@ async def leer_comentarios(event: CommentEvent)-> None:
         if clave_comentario not in comentarios_ya_leidos:
             comentarios_ya_leidos.add(clave_comentario)
             print(Fore.LIGHTYELLOW_EX + f"[MESSAGE] {event.user.nickname}: {event.comment}" + Style.RESET_ALL)
-            if(event.user.nickname == "bauta_gallardo_madrid_912"):
-                await hablar(f"bautii dijo {event.comment}")
-            else:
-                await hablar(f"{event.user.nickname} dijo {event.comment}")
+            nombre = lista_usuarios[event.user.nickname] if validar_usuario(event.user.nickname,lista_usuarios) else event.user.nickname
+            await hablar(f"{nombre} dijo {event.comment}")
     else:
         print(Fore.LIGHTRED_EX + f"[SPAM] {event.user.nickname}: {event.comment}" + Style.RESET_ALL)
         await hablar(f"{event.user.nickname} intento mandar un mensaje spam")
