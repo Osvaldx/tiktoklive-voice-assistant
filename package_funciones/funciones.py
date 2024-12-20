@@ -4,6 +4,25 @@ from colorama import Fore,Style
 import json
 import os
 
+def agregar_usuario_json():
+    usuario = str(input(Fore.LIGHTCYAN_EX + "[~] Ingrese el usuario original: "))
+    while(not usuario.replace("_","").isalnum()):
+        print(Fore.RED + "[!] Error: Ingrese un nombre valido" + Style.RESET_ALL)
+        usuario = str(input(Fore.LIGHTCYAN_EX + "[~] Ingrese el usuario original: "))
+
+    rename = str(input(Fore.LIGHTMAGENTA_EX + "[~] Ingrese el rename: "))
+    while(not rename.replace("_","").isalnum()):
+        print(Fore.RED + "[!] Error: Ingrese un nombre valido" + Style.RESET_ALL)
+        rename = str(input(Fore.LIGHTMAGENTA_EX + "[~] Ingrese el rename: "))
+    
+    with open("jsons/users_rename.json", "r",encoding="utf-8") as archivo:
+        contenido_json = json.load(archivo)
+    
+    contenido_json[usuario] = rename
+
+    with open("jsons/users_rename.json", "w", encoding="utf-8") as archivo:
+        json.dump(contenido_json, archivo, indent=4)
+
 def obtener_usuarios_json()->str:
     with open("jsons/users_rename.json", "r", encoding="utf-8") as archivo:
         datos = json.load(archivo)

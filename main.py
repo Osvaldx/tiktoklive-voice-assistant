@@ -11,7 +11,7 @@ if __name__ == "__main__":
             respuesta_terminal = str(input(Fore.LIGHTYELLOW_EX + "assistant:-~ "))
             match respuesta_terminal:
                 case("1"):
-                    pass
+                    agregar_usuario_json()
                     limpiar_terminal()
                 case("2"):
                     pass
