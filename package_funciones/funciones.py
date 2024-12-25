@@ -4,6 +4,23 @@ from colorama import Fore,Style
 import json
 import os
 
+def eliminar_usuario_json():
+    usuario = str(input(Fore.LIGHTCYAN_EX + "[~] Ingrese el usuario original: "))
+    while(not usuario.replace("_","").isalnum()):
+        print(Fore.RED + "[!] Error: Ingrese un nombre valido" + Style.RESET_ALL)
+        usuario = str(input(Fore.LIGHTCYAN_EX + "[~] Ingrese el usuario original: "))
+    
+    with open("jsons/users_rename.json", "r", encoding="utf-8") as archivo:
+        contenido = json.load(archivo)
+    
+    if(contenido.get(usuario)):
+        contenido.pop(usuario)
+        print(Fore.LIGHTGREEN_EX + f"[+] {usuario} eliminado con exito de la lista json")
+        with open("jsons/users_rename.json", "w", encoding="utf-8") as archivo:
+            json.dump(contenido,archivo, indent=4)
+    else:
+        print(Fore.LIGHTRED_EX + f"[!] {usuario} no existe en la lista json")
+
 def agregar_usuario_json():
     usuario = str(input(Fore.LIGHTCYAN_EX + "[~] Ingrese el usuario original: "))
     while(not usuario.replace("_","").isalnum()):
@@ -56,9 +73,10 @@ ___        ___  __                    ___
 /~~\ .__/ .__/ | .__/  |  /~~\ | \|  |    ''' + Style.RESET_ALL)
     elif(clave == "opciones_menu_principal"):
         print("\n" + Fore.LIGHTCYAN_EX + "- [1] " + Fore.WHITE + "Renombrar usuarios-live" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTCYAN_EX + "- [2] " + Fore.WHITE + "Cambiar sonidos de alertas" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTYELLOW_EX + "- [3] " + Fore.WHITE + "Empezar directo" + Style.RESET_ALL + "\n" +
-              Fore.LIGHTCYAN_EX + "- [4] " + Fore.WHITE + "Salir" + Style.RESET_ALL)
+              Fore.LIGHTCYAN_EX + "- [2] " + Fore.WHITE + "Eliminar usuarios-live" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTCYAN_EX + "- [3] " + Fore.WHITE + "Cambiar sonidos de alertas" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTYELLOW_EX + "- [4] " + Fore.WHITE + "Empezar directo" + Style.RESET_ALL + "\n" +
+              Fore.LIGHTCYAN_EX + "- [5] " + Fore.WHITE + "Salir" + Style.RESET_ALL)
 
 def limpiar_terminal():
     os.system("cls" if os.name == "nt" else "clear")

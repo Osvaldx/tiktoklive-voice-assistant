@@ -14,14 +14,17 @@ if __name__ == "__main__":
                     agregar_usuario_json()
                     limpiar_terminal()
                 case("2"):
+                    limpiar_terminal()
+                    eliminar_usuario_json()
+                case("3"):
                     pass
                     limpiar_terminal()
-                case("3"):
+                case("4"):
                     limpiar_terminal()
                     cliente.run()
-                case("4"):
-                    bandera = False
+                case("5"):
                     limpiar_terminal()
+                    bandera = False
                 case _:
                     limpiar_terminal()
                     print(Fore.RED + "[!] Ingrese una opcion valida!")
